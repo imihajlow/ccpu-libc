@@ -36,12 +36,12 @@
 
 #ifndef __SIZE_T_DEFINED
 #define __SIZE_T_DEFINED
-  typedef unsigned int size_t;
+  typedef __SIZE_TYPE__ size_t;
 #endif
 
 #ifndef __WCHAR_T_DEFINED
 #define __WCHAR_T_DEFINED
-  typedef unsigned long int wchar_t;
+  typedef __WCHAR_TYPE__ wchar_t;
 #endif
 
 #ifndef NULL
@@ -81,15 +81,9 @@ int rand(void);
 void srand(unsigned int seed);
 
 /* Memory management functions (ISO C11 7.22.3) */
-#if defined(__SDCC_mcs51) || defined(__SDCC_ds390) || defined(__SDCC_ds400)
-void __xdata *calloc (size_t nmemb, size_t size);
-void __xdata *malloc (size_t size);
-void __xdata *realloc (void *ptr, size_t size);
-#else
 void *calloc (size_t nmemb, size_t size);
 void *malloc (size_t size);
 void *realloc (void *ptr, size_t size);
-#endif
 #if __STDC_VERSION__ >= 201112L
 inline void *aligned_alloc(size_t alignment, size_t size)
 {

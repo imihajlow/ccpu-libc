@@ -46,6 +46,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define __data
+#define __idata
+#define __bit char
+
 static __data char radix ;
 static __bit  long_flag = 0;
 static __bit  string_flag =0;

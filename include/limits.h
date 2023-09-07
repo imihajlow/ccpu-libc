@@ -29,12 +29,12 @@
 #ifndef __STDC_VERSION_LIMITS_H__
 #define __STDC_VERSION_LIMITS_H__ __STDC_VERSION__
 
-#define CHAR_BIT    8    /* bits in a char */
-#define SCHAR_MAX   127
-#define SCHAR_MIN  -128
+#define CHAR_BIT    __CHAR_BIT__
+#define SCHAR_MAX   __SCHAR_MAX__
+#define SCHAR_MIN  (-__SCHAR_MAX__ - 1)
 #define UCHAR_MAX   0xff
 
-#ifdef __SDCC_CHAR_UNSIGNED
+#ifdef __CHAR_UNSIGNED__
 #define CHAR_MAX    UCHAR_MAX
 #define CHAR_MIN    0
 #else
@@ -46,31 +46,31 @@
 #define MB_LEN_MAX  4
 #endif
 
-#define INT_MIN     (-32767 - 1)
-#define INT_MAX     32767
-#define SHRT_MAX    INT_MAX
-#define SHRT_MIN    INT_MIN
+#define INT_MIN     (-__INT_MAX__ - 1)
+#define INT_MAX     __INT_MAX__
+#define SHRT_MAX    __SHRT_MAX__
+#define SHRT_MIN    (-__SHRT_MAX__ - 1)
 #define UINT_MAX    0xffff
 #define UINT_MIN    0
 #define USHRT_MAX   UINT_MAX
 #define USHRT_MIN   UINT_MIN
-#define LONG_MIN    (-2147483647L-1)
-#define LONG_MAX    2147483647L
-#define ULONG_MAX   0xffffffff
-#define ULONG_MIN   0
+#define LONG_MIN    (-__LONG_MAX__-1)
+#define LONG_MAX    __LONG_MAX__
+#define ULONG_MAX   0xffffffffUL
+#define ULONG_MIN   0UL
 
 #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
-#define LLONG_MIN   (-9223372036854775807LL-1)
-#define LLONG_MAX   9223372036854775807LL
+#define LLONG_MIN   (-__LONG_LONG_MAX__-1)
+#define LLONG_MAX   __LONG_LONG_MAX__
 #define ULLONG_MAX  18446744073709551615ULL
+#define USHRT_WIDTH __SHRT_WIDTH__
+#define UINT_WIDTH __INT_WIDTH__
+#define ULONG_WIDTH __LONG_WIDTH__
+#define ULLONG_WIDTH __LONG_LONG_WIDTH__
 #endif
 
 #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L
 #define BITINT_MAXWIDTH __SDCC_BITINT_MAXWIDTH
-#define USHRT_WIDTH 16
-#define UINT_WIDTH 16
-#define ULONG_WIDTH 32
-#define ULLONG_WIDTH 64
 #endif
 
 #endif

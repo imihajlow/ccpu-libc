@@ -36,7 +36,7 @@
 
 #ifndef __SIZE_T_DEFINED
 #define __SIZE_T_DEFINED
-  typedef unsigned int size_t;
+  typedef __SIZE_TYPE__ size_t;
 #endif
 
 #if __STDC_VERSION__ >= 202311L
@@ -48,12 +48,12 @@
 
 #ifndef __CHAR16_T_DEFINED
 #define __CHAR16_T_DEFINED
-  typedef unsigned int char16_t;
+  typedef __UINT16_TYPE__ char16_t;
 #endif
 
 #ifndef __CHAR32_T_DEFINED
 #define __CHAR32_T_DEFINED
-  typedef unsigned long int char32_t;
+  typedef __UINT32_TYPE__ char32_t;
 #endif
 
 size_t mbrtoc16(char16_t *restrict pc16, const char *restrict s, size_t n, mbstate_t *restrict ps);

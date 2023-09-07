@@ -36,16 +36,12 @@
 
 #ifndef __PTRDIFF_T_DEFINED
 #define __PTRDIFF_T_DEFINED
-#if defined (__SDCC_mcs51) || defined (__SDCC_ds390)
-  typedef long int ptrdiff_t;
-#else
-  typedef int ptrdiff_t; // 16 bit ptrdiff_t is in violation of the ISO C99, C11, C17 standards, but complies with C90 and C23.
-#endif
+typedef __PTRDIFF_TYPE__ ptrdiff_t;
 #endif
 
 #ifndef __SIZE_T_DEFINED
 #define __SIZE_T_DEFINED
-  typedef unsigned int size_t;
+typedef __SIZE_TYPE__ size_t;
 #endif
 
 #if __STDC_VERSION__ >= 201112L
@@ -54,7 +50,7 @@
 
 #ifndef __WCHAR_T_DEFINED
 #define __WCHAR_T_DEFINED
-  typedef unsigned long int wchar_t;
+  typedef __WCHAR_TYPE__ wchar_t;
 #endif
 
 /* Bounds-checking interfaces from annex K of the C11 standard. */

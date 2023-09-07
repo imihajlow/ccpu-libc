@@ -30,40 +30,11 @@
 #ifndef __STDC_VERSION_STDARG_H__
 #define __STDC_VERSION_STDARG_H__ 201710L /* TODO: replace by __STDC_VERSION__ when this header becomes C23-compliant! */
 
-#if defined(__SDCC_z80) || defined(__SDCC_z180) || defined(__SDCC_r2k) || defined(__SDCC_r2ka) || defined(__SDCC_r3ka) || defined(__SDCC_tlcs90) || defined (__SDCC_ez80_z80) || defined (__SDCC_z80n) || defined(__SDCC_sm83) || defined(__SDCC_r800) || defined(__SDCC_hc08) || defined(__SDCC_s08) || defined(__SDCC_mos6502) || defined(__SDCC_mos65c02) || defined(__SDCC_stm8)
-
-typedef unsigned char * va_list;
-#define va_start(marker, last)  { marker = (va_list)&last + sizeof(last); }
-#define va_arg(marker, type)    *((type *)((marker += sizeof(type)) - sizeof(type)))
-
-#elif defined(__SDCC_ds390) || defined(__SDCC_ds400)
-
-typedef unsigned char * va_list;
-#define va_start(marker, first) { marker = (va_list)&first; }
-#define va_arg(marker, type)    *((type *)(marker -= sizeof(type)))
-
-#elif defined(__SDCC_pdk13) || defined(__SDCC_pdk14) || defined(__SDCC_pdk15)
-
-typedef unsigned char * va_list;
-#define va_start(marker, first) { marker = (va_list)&first; }
-#define va_arg(marker, type)    *((type *)(marker -= (sizeof(type) + sizeof(type) % 2)))
-
-#elif defined(__SDCC_USE_XSTACK)
-
-typedef unsigned char __pdata * va_list;
-#define va_start(marker, first) { marker = (va_list)&first; }
-#define va_arg(marker, type)    *((type __pdata *)(marker -= sizeof(type)))
-
-#else
-
-typedef unsigned char __data * va_list;
-#define va_start(marker, first) { marker = (va_list)&first; }
-#define va_arg(marker, type)    *((type __data * )(marker -= sizeof(type)))
-
-#endif
-
-#define va_copy(dest, src)      { dest = src; }
-#define va_end(marker)          { marker = (va_list) 0; };
+typedef __builtin_va_list va_list;
+#define va_start(v,l)   do { (v) = __builtin_va_start((l)); } while (0)
+#define va_end(x)
+#define va_arg(v, t)    ((v) = __builtin_va_increment((v)), __builtin_va_arg((v), t))
+#define __va_copy(d,s)  __builtin_va_copy((d),(s))
 
 #endif
 

@@ -32,88 +32,61 @@
 
 /* Exact integral types.  */
 
-#if !defined(__SDCC_pic14) && !defined(__SDCC_pic16)
-#if __STDC_VERSION__ >= 199901L
 #define __SDCC_LONGLONG
-#endif
-#endif
 
 #ifndef __SPECIFIED_WIDTH_INTEGER_TYPES_DEFINED
 #define __SPECIFIED_WIDTH_INTEGER_TYPES_DEFINED
 
 /* Signed.  */
 
-typedef signed char             int8_t;
-typedef short int               int16_t;
-typedef long int                int32_t;
-#ifdef __SDCC_LONGLONG
-typedef long long int           int64_t;
-#endif
+typedef __INT8_TYPE__            int8_t;
+typedef __INT16_TYPE__           int16_t;
+typedef __INT32_TYPE__           int32_t;
+typedef __INT64_TYPE__           int64_t;
 
 /* Unsigned.  */
-typedef unsigned char           uint8_t;
-typedef unsigned short int      uint16_t;
-typedef unsigned long int       uint32_t;
-#ifdef __SDCC_LONGLONG
-typedef unsigned long long int  uint64_t;
-#endif
-
+typedef __UINT8_TYPE__            uint8_t;
+typedef __UINT16_TYPE__           uint16_t;
+typedef __UINT32_TYPE__           uint32_t;
+typedef __UINT64_TYPE__           uint64_t;
 /* Small types.  */
 
 /* Signed.  */
-typedef signed char             int_least8_t;
-typedef short int               int_least16_t;
-typedef long int                int_least32_t;
-#ifdef __SDCC_LONGLONG
-typedef long long int           int_least64_t;
-#endif
+typedef __INT_LEAST8_TYPE__       int_least8_t;
+typedef __INT_LEAST16_TYPE__      int_least16_t;
+typedef __INT_LEAST32_TYPE__      int_least32_t;
+typedef __INT_LEAST64_TYPE__      int_least64_t;
 
 /* Unsigned.  */
-typedef unsigned char           uint_least8_t;
-typedef unsigned short int      uint_least16_t;
-typedef unsigned long int       uint_least32_t;
-#ifdef __SDCC_LONGLONG
-typedef unsigned long long int  uint_least64_t;
-#endif
+typedef __UINT_LEAST8_TYPE__       uint_least8_t;
+typedef __UINT_LEAST16_TYPE__      uint_least16_t;
+typedef __UINT_LEAST32_TYPE__      uint_least32_t;
+typedef __UINT_LEAST64_TYPE__      uint_least64_t;
 
 /* Fast types.  */
 
 /* Signed.  */
-typedef signed char             int_fast8_t;
-typedef int                     int_fast16_t;
-typedef long int                int_fast32_t;
-#ifdef __SDCC_LONGLONG
-typedef long long int           int_fast64_t;
-#endif
+typedef __INT_FAST8_TYPE__       int_fast8_t;
+typedef __INT_FAST16_TYPE__      int_fast16_t;
+typedef __INT_FAST32_TYPE__      int_fast32_t;
+typedef __INT_FAST64_TYPE__      int_fast64_t;
 
 /* Unsigned.  */
-typedef unsigned char           uint_fast8_t;
-typedef unsigned int            uint_fast16_t;
-typedef unsigned long int       uint_fast32_t;
-#ifdef __SDCC_LONGLONG
-typedef unsigned long long int  uint_fast64_t;
-#endif
+typedef __UINT_FAST8_TYPE__       uint_fast8_t;
+typedef __UINT_FAST16_TYPE__      uint_fast16_t;
+typedef __UINT_FAST32_TYPE__      uint_fast32_t;
+typedef __UINT_FAST64_TYPE__      uint_fast64_t;
 
 #endif // __SPECIFIED_WIDTH_INTEGER_TYPES_DEFINED
 
 /* Types for `void *' pointers.  */
-#if defined (__SDCC_mcs51) || defined (__SDCC_ds390)
-  typedef long int              intptr_t;
-  typedef unsigned long int     uintptr_t;
-#else
-  typedef int                   intptr_t;
-  typedef unsigned int          uintptr_t;
-#endif
+typedef __INTPTR_TYPE__      intptr_t;
+typedef __UINTPTR_TYPE__     uintptr_t;
 
 
 /* Largest integral types.  */
-#ifndef __SDCC_LONGLONG
-typedef long int                intmax_t;
-typedef unsigned long int       uintmax_t;
-#else
-typedef long long int           intmax_t;
-typedef unsigned long long int  uintmax_t;
-#endif
+typedef __INTMAX_TYPE__           intmax_t;
+typedef __UINTMAX_TYPE__          uintmax_t;
 
 /* Limits of integral types.  */
 
@@ -121,154 +94,104 @@ typedef unsigned long long int  uintmax_t;
 #define INT8_MIN               (-128)
 #define INT16_MIN              (-32767-1)
 #define INT32_MIN              (-2147483647L-1)
-#ifdef __SDCC_LONGLONG
 #define INT64_MIN              (-9223372036854775807LL-1)
-#endif
 
 /* Maximum of signed integral types.  */
 #define INT8_MAX               (127)
 #define INT16_MAX              (32767)
 #define INT32_MAX              (2147483647L)
-#ifdef __SDCC_LONGLONG
 #define INT64_MAX              (9223372036854775807LL)
-#endif
 
 /* Maximum of unsigned integral types.  */
 #define UINT8_MAX              (255)
 #define UINT16_MAX             (65535)
 #define UINT32_MAX             (4294967295UL)
-#ifdef __SDCC_LONGLONG
 #define UINT64_MAX             (18446744073709551615ULL)
-#endif
 
 /* Minimum of signed integral types having a minimum size.  */
-#define INT_LEAST8_MIN         INT8_MIN
-#define INT_LEAST16_MIN        INT16_MIN
-#define INT_LEAST32_MIN        INT32_MIN
-#ifdef __SDCC_LONGLONG
-#define INT_LEAST64_MIN        INT64_MIN
-#endif
+#define INT_LEAST8_MIN         (INT8_MIN)
+#define INT_LEAST16_MIN        (INT16_MIN)
+#define INT_LEAST32_MIN        (INT32_MIN)
+#define INT_LEAST64_MIN        (INT64_MIN)
 
 /* Maximum of signed integral types having a minimum size.  */
 #define INT_LEAST8_MAX         INT8_MAX
 #define INT_LEAST16_MAX        INT16_MAX
 #define INT_LEAST32_MAX        INT32_MAX
-#ifdef __SDCC_LONGLONG
 #define INT_LEAST64_MAX        INT64_MAX
-#endif
 
 /* Maximum of unsigned integral types having a minimum size.  */
 #define UINT_LEAST8_MAX        UINT8_MAX
 #define UINT_LEAST16_MAX       UINT16_MAX
 #define UINT_LEAST32_MAX       UINT32_MAX
-#ifdef __SDCC_LONGLONG
 #define UINT_LEAST64_MAX       UINT64_MAX
-#endif
 
 /* Minimum of fast signed integral types having a minimum size.  */
-#define INT_FAST8_MIN          INT8_MIN
-#define INT_FAST16_MIN         INT16_MIN
-#define INT_FAST32_MIN         INT32_MIN
-#ifdef __SDCC_LONGLONG
-#define INT_FAST64_MIN         INT64_MIN
-#endif
+#define INT_FAST8_MIN          (INT8_MIN)
+#define INT_FAST16_MIN         (INT16_MIN)
+#define INT_FAST32_MIN         (INT32_MIN)
+#define INT_FAST64_MIN         (INT64_MIN)
 
 /* Maximum of fast signed integral types having a minimum size.  */
 #define INT_FAST8_MAX          INT8_MAX
 #define INT_FAST16_MAX         INT16_MAX
 #define INT_FAST32_MAX         INT32_MAX
-#ifdef __SDCC_LONGLONG
 #define INT_FAST64_MAX         INT64_MAX
-#endif
 
 /* Maximum of fast unsigned integral types having a minimum size.  */
 #define UINT_FAST8_MAX         UINT8_MAX
 #define UINT_FAST16_MAX        UINT16_MAX
 #define UINT_FAST32_MAX        UINT32_MAX
-#ifdef __SDCC_LONGLONG
 #define UINT_FAST64_MAX        UINT64_MAX
-#endif
 
 /* Values to test for integral types holding `void *' pointer.  */
-#if defined (__SDCC_mcs51) || defined (__SDCC_ds390)
-#define INTPTR_MIN             (-2147483647L-1)
-#define INTPTR_MAX             (2147483647L)
-#define UINTPTR_MAX            (4294967295UL)
-#else
-#define INTPTR_MIN             (-32767-1)
-#define INTPTR_MAX             (32767)
-#define UINTPTR_MAX            (65535)
-#endif
+#define INTPTR_MIN             (-__INTPTR_MAX__-1)
+#define INTPTR_MAX             (__INTPTR_MAX__)
+#define UINTPTR_MAX            (__UINTPTR_MAX__)
 
 /* Minimum for largest signed integral type.  */
-#ifndef __SDCC_LONGLONG
-#define INTMAX_MIN             (-2147483647L-1)
-#else
-#define INTMAX_MIN             (-9223372036854775807LL-1)
-#endif
+#define INTMAX_MIN             (-__INTMAX_MAX__-1)
 
 /* Maximum for largest signed integral type.  */
-#ifndef __SDCC_LONGLONG
-#define INTMAX_MAX             (2147483647L)
-#else
-#define INTMAX_MAX             (9223372036854775807LL)
-#endif
+#define INTMAX_MAX             (__INTMAX_MAX__)
 
 /* Maximum for largest unsigned integral type.  */
-#ifndef __SDCC_LONGLONG
-#define UINTMAX_MAX            (4294967295UL)
-#else
-#define UINTMAX_MAX            (18446744073709551615ULL)
-#endif
+#define UINTMAX_MAX            (__UINTMAX_MAX__)
 
 /* Limits of other integer types.  */
 
 /* Limits of `ptrdiff_t' type.  */
-#if defined (__SDCC_mcs51) || defined (__SDCC_ds390)
-#define PTRDIFF_MIN           (-2147483647L-1)
-#define PTRDIFF_MAX           (2147483647L)
-#else
-#define PTRDIFF_MIN           (-32767-1)
-#define PTRDIFF_MAX           (32767)
-#endif
+#define PTRDIFF_MIN           (-__PTRDIFF_MAX__-1)
+#define PTRDIFF_MAX           (__PTRDIFF_MAX__)
 
 /* */
 #define SIG_ATOMIC_MIN        (0)
 #define SIG_ATOMIC_MAX        (255)
 
 /* Limit of `size_t' type.  */
-#define SIZE_MAX               (65535u)
+#define SIZE_MAX               (__SIZE_MAX__)
 
 /* Signed.  */
 #define INT8_C(c)      c
 #define INT16_C(c)     c
 #define INT32_C(c)     c ## L
-#ifdef __SDCC_LONGLONG
 #define INT64_C(c)     c ## LL
-#endif
 
 /* Unsigned.  */
 #define UINT8_C(c)     c ## U
 #define UINT16_C(c)    c ## U
 #define UINT32_C(c)    c ## UL
-#ifdef __SDCC_LONGLONG
 #define UINT64_C(c)    c ## ULL
-#endif
 
-#define WCHAR_MIN      0
-#define WCHAR_MAX      0xffffffff
+#define WCHAR_MIN      (__WCHAR_MIN__)
+#define WCHAR_MAX      (__WCHAR_MAX__)
 
-#define WINT_MIN       0
-#define WINT_MAX       0xffffffff
+#define WINT_MIN       (__WINT_MIN__)
+#define WINT_MAX       (__WINT_MAX__)
 
 /* Maximal type.  */
-#ifdef __SDCC_LONGLONG
 #define INTMAX_C(c)    c ## LL
 #define UINTMAX_C(c)   c ## ULL
-#else
-#define INTMAX_C(c)    c ## L
-#define UINTMAX_C(c)   c ## UL
-#endif
 
 /* Bounds-checking interfaces from annex K of the C11 standard. */
 #if defined (__STDC_WANT_LIB_EXT1__) && __STDC_WANT_LIB_EXT1__

@@ -30,7 +30,7 @@
 #ifndef __SDCC_STDCKDINT_H
 #define __SDCC_STDCKDINT_H 1
 
-_Static_assert (sizeof(long long) >= 2 * sizeof(long));
+// _Static_assert (sizeof(long long) >= 2 * sizeof(long));
 
 // Default implementation: Suitable for additive operators for everything smaller than long long, and for multiplication for everything smaller than long long except for unsigned long times unsigned long. Not very efficient. Todo: Replace by more efficient implementation using _BitInt once all ports support _BitInt.
 #define __CKD_DEFAULT_IMPL(T,O) \

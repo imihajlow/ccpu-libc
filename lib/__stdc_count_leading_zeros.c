@@ -30,6 +30,7 @@
 
 #include <limits.h>
 #include <stdint.h>
+#include <assert.h>
 
 static_assert(INT_FAST8_MAX >= ULLONG_WIDTH, "Unsuitable return type");
 

@@ -1,6 +1,6 @@
 CC=ccpu-cc
 ASM=../ccpu/tools/asm.py
-CFLAGS=--std=gnu11 --isystem=include
+CFLAGS=--std=gnu11 -I include
 
 LIBC_OBJECTS=
 

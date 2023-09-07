@@ -32,12 +32,12 @@
 
 #ifndef __WCHAR_T_DEFINED
 #define __WCHAR_T_DEFINED
-  typedef unsigned long int wchar_t;
+  typedef __WCHAR_TYPE__ wchar_t;
 #endif
 
 #ifndef __SIZE_T_DEFINED
 #define __SIZE_T_DEFINED
-  typedef unsigned int size_t;
+  typedef __SIZE_TYPE__ size_t;
 #endif
 
 #ifndef __MBSTATE_T_DEFINED
@@ -47,7 +47,7 @@
 
 #ifndef __WINT_T_DEFINED
 #define __WINT_T_DEFINED
-  typedef unsigned long int wint_t;
+  typedef __WINT_TYPE__ wint_t;
 #endif
 
 struct tm;

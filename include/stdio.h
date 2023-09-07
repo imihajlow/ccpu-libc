@@ -26,14 +26,9 @@
    might be covered by the GNU General Public License.
 -------------------------------------------------------------------------*/
 
-#ifndef __SDC51_STDIO_H
-#define __SDC51_STDIO_H 1
+#pragma once
 
 #include <stdarg.h>
-
-#ifdef __ds390
-#include <tinibios.h>
-#endif
 
 #include <sdcc-lib.h>
 
@@ -47,7 +42,7 @@
 
 #ifndef __SIZE_T_DEFINED
 #define __SIZE_T_DEFINED
-  typedef unsigned int size_t;
+  typedef __SIZE_TYPE__ size_t;
 #endif
 
 /* Bounds-checking interfaces from annex K of the C11 standard. */
@@ -91,4 +86,3 @@ extern void printf_fast_f(__code const char *fmt, ...) _REENTRANT;
 extern void printf_tiny(__code const char *fmt, ...) _REENTRANT;
 #endif
 
-#endif /* __SDC51_STDIO_H */
