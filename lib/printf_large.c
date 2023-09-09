@@ -28,9 +28,7 @@
    might be covered by the GNU General Public License.
 -------------------------------------------------------------------------*/
 
-#if defined (__SDCC_ds390) || defined (__SDCC_USE_XSTACK) || defined (__SDCC_MODEL_HUGE)
-#define USE_FLOATS 1
-#endif
+#define USE_FLOATS 0
 
 #include <stdarg.h>
 #include <string.h>

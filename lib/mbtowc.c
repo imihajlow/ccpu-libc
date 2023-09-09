@@ -28,7 +28,7 @@
 
 #include <stdlib.h>
 
-int mbtowc(wchar_t *pwc, const char *restrict s, size_t n)
+int mbtowc(wchar_t *restrict pwc, const char *restrict s, size_t n)
 {
 	wchar_t codepoint;
 	unsigned char seqlen, i;

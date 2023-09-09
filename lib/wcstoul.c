@@ -60,7 +60,7 @@ static signed char _isdigit(const wchar_t c, unsigned char base)
 
 // NOTE for maintenance: strtoull, wcstoul and wcstoull have been derived from strtoul
 
-unsigned long int wcstoul(const wchar_t *nptr, wchar_t **endptr, int base)
+unsigned long int wcstoul(const wchar_t *restrict nptr, wchar_t **restrict endptr, int base)
 {
   const wchar_t *ptr = nptr;
   unsigned long int ret;
