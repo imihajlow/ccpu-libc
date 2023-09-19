@@ -28,12 +28,9 @@
    might be covered by the GNU General Public License.
 -------------------------------------------------------------------------*/
 
-/* it is important to declare this function extern before including
-   the inline definition to give it external linkage */
-extern int isupper (int c);
-
-/* also include stdio.h before ctype.h here so ctype can perform a
-   _Static_assert on EOF */
 #include <stdio.h>
-
 #include <ctype.h>
+
+int isupper (int c) {
+   return c >= 'A' && c <= 'Z';
+}

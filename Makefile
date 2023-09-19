@@ -4,7 +4,7 @@ CFLAGS=--std=gnu11 -I include
 
 LIBC_OBJECTS=lib/__assert.o \
 	lib/__itoa.o \
-	lib/__memcpy.o \
+	lib/__ltoa.o \
 	lib/_heap.o \
 	lib/_memchr.o \
 	lib/_memcmp.o \
@@ -60,9 +60,9 @@ LIBC_OBJECTS=lib/__assert.o \
 	lib/mbsinit.o \
 	lib/mbstowcs.o \
 	lib/mbtowc.o \
+	lib/mbrtowc.o \
 	lib/memalignment.o \
 	lib/memccpy.o \
-	lib/memcpy.o \
 	lib/memset_explicit.o \
 	lib/printf_large.o \
 	lib/printfl.o \
@@ -93,7 +93,8 @@ LIBC_OBJECTS=lib/__assert.o \
 	lib/wcstoull.o \
 	lib/wcstoumax.o \
 	lib/wctob.o \
-	lib/wctomb.o
+	lib/wctomb.o \
+	lib/iswblank.o
 
 libc.a: $(LIBC_OBJECTS)
 	ar rc $@ $^

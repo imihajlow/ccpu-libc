@@ -84,29 +84,8 @@ void srand(unsigned int seed);
 void *calloc (size_t nmemb, size_t size);
 void *malloc (size_t size);
 void *realloc (void *ptr, size_t size);
-#if __STDC_VERSION__ >= 201112L
-inline void *aligned_alloc(size_t alignment, size_t size)
-{
-  (void)alignment;
-  return malloc(size);
-}
-#endif
+void *aligned_alloc(size_t alignment, size_t size);
 extern void free (void * ptr);
-
-#if __STDC_VERSION__ >= 202311L
-inline void free_sized(void *ptr, size_t size)
-{
-  (void)size;
-  free (ptr);
-}
-
-inline void free_aligned_sized(void *ptr, size_t alignment, size_t size)
-{
-  (void)alignment;
-  (void)size;
-  free (ptr);
-}
-#endif
 
 /* Searching and sorting utilities (ISO C11 7.22.5) */
 extern void *bsearch(const void *key, const void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *) __reentrant);

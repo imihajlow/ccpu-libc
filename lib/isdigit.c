@@ -28,12 +28,8 @@
    might be covered by the GNU General Public License.
 -------------------------------------------------------------------------*/
 
-/* it is important to declare this function extern before including
-   the inline definition to give it external linkage */
-extern int isdigit (int c);
-
-/* also include stdio.h before ctype.h here so ctype can perform a
-   _Static_assert on EOF */
 #include <stdio.h>
 
-#include <ctype.h>
+int isdigit (int c) {
+   return c <= '9' && c >= '0';
+}

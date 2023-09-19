@@ -58,10 +58,7 @@ struct tm;
 
 /* C99 Character classification */
 
-inline int iswblank(wint_t c)
-{
-  return ((wchar_t)c == L' ' || (wchar_t)c == L'\t');
-}
+extern int iswblank(wint_t c);
 
 /* C99 Wide string comparison functions (ISO C11 7.29.4.4) */
 int wcscmp(const wchar_t *s1, const wchar_t *s2);
