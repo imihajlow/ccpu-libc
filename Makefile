@@ -27,7 +27,6 @@ LIBC_OBJECTS=lib/__assert.o \
 	lib/aligned_alloc.o \
 	lib/atoi.o \
 	lib/atol.o \
-	lib/atoll.o \
 	lib/bsearch.o \
 	lib/btowc.o \
 	lib/c16rtomb.o \
@@ -64,20 +63,15 @@ LIBC_OBJECTS=lib/__assert.o \
 	lib/memalignment.o \
 	lib/memccpy.o \
 	lib/memset_explicit.o \
-	lib/printf_large.o \
 	lib/printfl.o \
 	lib/puts.o \
 	lib/qsort.o \
 	lib/rand.o \
 	lib/realloc.o \
-	lib/sprintf.o \
 	lib/strdup.o \
 	lib/strndup.o \
-	lib/strtoimax.o \
 	lib/strtol.o \
-	lib/strtoll.o \
-	lib/strtoull.o \
-	lib/strtoumax.o \
+	lib/strtoul.o \
 	lib/strxfrm.o \
 	lib/tolower.o \
 	lib/toupper.o \
@@ -86,15 +80,14 @@ LIBC_OBJECTS=lib/__assert.o \
 	lib/wcscmp.o \
 	lib/wcslen.o \
 	lib/wcsncmp.o \
-	lib/wcstoimax.o \
 	lib/wcstol.o \
-	lib/wcstoll.o \
+	lib/wcstoul.o \
 	lib/wcstombs.o \
-	lib/wcstoull.o \
-	lib/wcstoumax.o \
 	lib/wctob.o \
 	lib/wctomb.o \
-	lib/iswblank.o
+	lib/iswblank.o \
+	lib/sprintf.o \
+	lib/printf_large.o
 
 libc.a: $(LIBC_OBJECTS)
 	ar rc $@ $^

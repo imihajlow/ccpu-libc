@@ -32,13 +32,10 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <string.h>
-#if __SDCC_LONGLONG
 #include <stdckdint.h>
-#endif
 #include <limits.h>
 #include <errno.h>
 
-#if __SDCC_LONGLONG
 static signed char _isdigit(const char c, unsigned char base)
 {
   unsigned char v;
@@ -139,4 +136,3 @@ unsigned long long int strtoull(const char *nptr, char **endptr, int base)
 
   return (neg ? -ret : ret);
 }
-#endif

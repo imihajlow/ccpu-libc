@@ -39,18 +39,11 @@
 
 #define PTR value.ptr
 
-#ifdef __SDCC_ds390
 #define NULL_STRING "<NULL>"
 #define NULL_STRING_LENGTH 6
-#endif
 
-#if defined (__SDCC_mcs51) && defined (__SDCC_MODEL_SMALL) && !defined (__SDCC_STACK_AUTO)
-# define MEM_SPACE_BUF __idata
-# define MEM_SPACE_BUF_PP __idata
-#else
-# define MEM_SPACE_BUF
-# define MEM_SPACE_BUF_PP _AUTOMEM
-#endif
+#define MEM_SPACE_BUF
+#define MEM_SPACE_BUF_PP
 
 /****************************************************************************/
 
@@ -85,83 +78,38 @@ typedef union
   const char     *ptr;
 } value_t;
 
-#ifndef __SDCC_STACK_AUTO
-  static _Bool lower_case;
-  static pfn_outputchar output_char;
-  static void* p;
-  static value_t value;
-  static int charsOutputted;
-#endif
-
 /****************************************************************************/
 
-#ifdef __SDCC_STACK_AUTO
-  #define OUTPUT_CHAR(c, p) { output_char (c, p); charsOutputted++; }
-#else
-  #define OUTPUT_CHAR(c, p) _output_char (c)
-  static void
-  _output_char (unsigned char c)
-  {
-    output_char( c, p );
-    charsOutputted++;
-  }
-#endif
+#define OUTPUT_CHAR(c, p) { output_char (c, p); charsOutputted++; }
 
 /*--------------------------------------------------------------------------*/
 
-#ifdef __SDCC_STACK_AUTO
-  static void
-  output_digit (unsigned char n, _Bool lower_case, pfn_outputchar output_char, void* p)
-  {
-    register unsigned char c = n + (unsigned char)'0';
+static void
+output_digit (unsigned char n, _Bool lower_case, pfn_outputchar output_char, void* p)
+{
+  register unsigned char c = n + (unsigned char)'0';
 
-    if (c > (unsigned char)'9')
-    {
-      c += (unsigned char)('A' - '0' - 10);
-      if (lower_case)
-         c += (unsigned char)('a' - 'A');
-    }
-    output_char( c, p );
-  }
-#else
-  static void
-  output_digit (unsigned char n)
+  if (c > (unsigned char)'9')
   {
-    register unsigned char c = n + (unsigned char)'0';
-
-    if (c > (unsigned char)'9')
-    {
-      c += (unsigned char)('A' - '0' - 10);
-      if (lower_case)
-         c = tolower(c);
-    }
-    _output_char( c );
+    c += (unsigned char)('A' - '0' - 10);
+    if (lower_case)
+       c += (unsigned char)('a' - 'A');
   }
-#endif
+  output_char( c, p );
+}
 
 /*--------------------------------------------------------------------------*/
 
-#ifdef __SDCC_STACK_AUTO
-  #define OUTPUT_2DIGITS( B )   { output_2digits( B, lower_case, output_char, p ); charsOutputted += 2; }
-  static void
-  output_2digits (unsigned char b, _Bool lower_case, pfn_outputchar output_char, void* p)
-  {
-    output_digit( b>>4,   lower_case, output_char, p );
-    output_digit( b&0x0F, lower_case, output_char, p );
-  }
-#else
-  #define OUTPUT_2DIGITS( B )   output_2digits( B )
-  static void
-  output_2digits (unsigned char b)
-  {
-    output_digit( b>>4   );
-    output_digit( b&0x0F );
-  }
-#endif
+#define OUTPUT_2DIGITS( B )   { output_2digits( B, lower_case, output_char, p ); charsOutputted += 2; }
+static void
+output_2digits (unsigned char b, _Bool lower_case, pfn_outputchar output_char, void* p)
+{
+  output_digit( b>>4,   lower_case, output_char, p );
+  output_digit( b&0x0F, lower_case, output_char, p );
+}
 
 /*--------------------------------------------------------------------------*/
 
-#if defined __SDCC_STACK_AUTO
 static void
 calculate_digit (value_t _AUTOMEM * value, unsigned char radix)
 {
@@ -182,30 +130,6 @@ calculate_digit (value_t _AUTOMEM * value, unsigned char radix)
   } while (--i);
   value->ul = ul;
 }
-#else
-static void
-calculate_digit (unsigned char radix)
-{
-  register unsigned long ul = value.ul;
-  register unsigned char b4 = value.byte[4];
-  register unsigned char i = 32;
-
-  do
-  {
-    b4 = (b4 << 1);
-    b4 |= (ul >> 31) & 0x01;
-    ul <<= 1;
-
-    if (radix <= b4 )
-    {
-      b4 -= radix;
-      ul |= 1;
-    }
-  } while (--i);
-  value.ul = ul;
-  value.byte[4] = b4;
-}
-#endif
 
 #if USE_FLOATS
 
@@ -219,7 +143,6 @@ calculate_digit (unsigned char radix)
 
 #define DEFAULT_FLOAT_PRECISION 6
 
-#ifdef __SDCC_STACK_AUTO
 #define OUTPUT_FLOAT(F, W, D, L, Z, S, P)       output_float(F, W, D, L, Z, S, P, output_char, p)
 static unsigned char
 output_float (float f, unsigned char reqWidth,
@@ -233,15 +156,6 @@ output_float (float f, unsigned char reqWidth,
  #else
   char fpBuffer[128];
  #endif
-#else
-#define OUTPUT_FLOAT(F, W, D, L, Z, S, P)       output_float(F, W, D, L, Z, S, P)
-static void
-output_float (float f, unsigned char reqWidth,
-              signed char reqDecimals,
-              _Bool left, _Bool zero, _Bool sign, _Bool space)
-{
-  __xdata char fpBuffer[128];
-#endif //__SDCC_STACK_AUTO
   _Bool negative = 0;
   unsigned long integerPart;
   float rounding;
@@ -420,11 +334,7 @@ output_float (float f, unsigned char reqWidth,
     OUTPUT_CHAR ('0'+exp/10, p);
     OUTPUT_CHAR ('0'+exp%10, p);
   }
-#ifdef __SDCC_STACK_AUTO
   return charsOutputted;
-#else
-  return;
-#endif //__SDCC_STACK_AUTO
 }
 #endif //USE_FLOATS
 
@@ -439,11 +349,9 @@ _print_format (pfn_outputchar pfn, void* pvoid, const char *format, va_list ap)
   _Bool   char_argument;
   _Bool   long_argument;
   _Bool   float_argument;
-#ifdef __SDCC_STACK_AUTO
   _Bool   lower_case;
   value_t value;
   int charsOutputted;
-#endif
   _Bool   lsd;
 
   unsigned char radix;
@@ -452,23 +360,11 @@ _print_format (pfn_outputchar pfn, void* pvoid, const char *format, va_list ap)
   size_t  length;
   char           c;
 
-#ifdef __SDCC_STACK_AUTO
   #define output_char   pfn
   #define p             pvoid
-#else
-  output_char = pfn;
-  p = pvoid;
-#endif
 
   // reset output chars
   charsOutputted = 0;
-
-#ifdef __SDCC_ds390
-  if (format==0)
-  {
-    format=NULL_STRING;
-  }
-#endif
 
   while( c=*format++ )
   {
@@ -566,19 +462,7 @@ get_conversion_spec:
       case 'S':
         PTR = va_arg(ap,ptr_t);
 
-#ifdef __SDCC_ds390
-        if (PTR==0)
-        {
-          PTR=NULL_STRING;
-          length=NULL_STRING_LENGTH;
-        }
-        else
-        {
-          length = strlen(PTR);
-        }
-#else
         length = strlen(PTR);
-#endif
         if ( decimals == -1 )
         {
           decimals = length;
@@ -709,13 +593,8 @@ get_conversion_spec:
         //width=8;
 #else
         // ignore b and l conversion spec for now
-#ifdef __SDCC_STACK_AUTO
         charsOutputted += OUTPUT_FLOAT(value.f, width, decimals, left_justify,
                                      zero_padding, prefix_sign, prefix_space);
-#else
-        OUTPUT_FLOAT(value.f, width, decimals, left_justify,
-                     zero_padding, prefix_sign, prefix_space);
-#endif //__SDCC_STACK_AUTO
 #endif //USE_FLOATS
       }
       else if (radix != 0)
@@ -760,11 +639,7 @@ get_conversion_spec:
 
         do {
           value.byte[4] = 0;
-#if defined __SDCC_STACK_AUTO
           calculate_digit(&value, radix);
-#else
-          calculate_digit(radix);
-#endif
           if (!lsd)
           {
             *pstore = (value.byte[4] << 4) | (value.byte[4] >> 4) | *pstore;
@@ -849,12 +724,8 @@ get_conversion_spec:
           {
             value.byte[4] = *pstore & 0x0F;
           }
-#ifdef __SDCC_STACK_AUTO
           output_digit( value.byte[4], lower_case, output_char, p );
           charsOutputted++;
-#else
-          output_digit( value.byte[4] );
-#endif
         }
         if (left_justify)
         {

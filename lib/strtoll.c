@@ -34,11 +34,8 @@
 #include <limits.h>
 #include <errno.h>
 
-#pragma disable_warning 196
-
 // NOTE: strtoll has been derived from strtol
 
-#if __SDCC_LONGLONG
 long long int strtoll(const char *nptr, char **endptr, int base)
 {
   const char *ptr = nptr;
@@ -94,4 +91,3 @@ long long int strtoll(const char *nptr, char **endptr, int base)
 
   return (neg ? -u : u);
 }
-#endif

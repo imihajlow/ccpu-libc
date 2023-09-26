@@ -32,7 +32,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <string.h>
-#if !defined(__SDCC_pic14) && !defined(__SDCC_pic16)
+#if 0
 #include <stdckdint.h>
 #endif
 #include <limits.h>
@@ -122,7 +122,7 @@ unsigned long int wcstoul(const wchar_t *restrict nptr, wchar_t **restrict endpt
       if (digit < 0)
         break;
 
-#if !defined(__SDCC_pic14) && !defined(__SDCC_pic16)
+#if 0
       range_error |= ckd_mul (&ret, ret, b);
       range_error |= ckd_add (&ret, ret, digit);
 #else

@@ -32,8 +32,6 @@
 
 /* Exact integral types.  */
 
-#define __SDCC_LONGLONG
-
 #ifndef __SPECIFIED_WIDTH_INTEGER_TYPES_DEFINED
 #define __SPECIFIED_WIDTH_INTEGER_TYPES_DEFINED
 

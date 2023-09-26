@@ -31,9 +31,5 @@
 
 uintmax_t strtoumax(const char * restrict nptr, char ** restrict endptr, int base)
 {
-#ifdef __SDCC_LONGLONG
   return strtoull(nptr, endptr, base);
-#else
-  return strtoul(nptr, endptr, base);
-#endif
 }

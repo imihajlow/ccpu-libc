@@ -31,9 +31,5 @@
 
 intmax_t strtoimax(const char * restrict nptr, char ** restrict endptr, int base)
 {
-#ifdef __SDCC_LONGLONG
   return strtoll(nptr, endptr, base);
-#else
-  return strtol(nptr, endptr, base);
-#endif
 }

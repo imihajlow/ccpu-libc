@@ -32,14 +32,11 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <string.h>
-#if __SDCC_LONGLONG
 #include <stdckdint.h>
-#endif
 #include <limits.h>
 #include <errno.h>
 #include <wchar.h>
 
-#if __SDCC_LONGLONG
 static signed char _isdigit(const wchar_t c, unsigned char base)
 {
   unsigned char v;
@@ -140,4 +137,3 @@ unsigned long long int wcstoull(const wchar_t *nptr, wchar_t **endptr, int base)
 
   return (neg ? -ret : ret);
 }
-#endif

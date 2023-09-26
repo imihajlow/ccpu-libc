@@ -31,9 +31,5 @@
 
 uintmax_t wcstoumax(const wchar_t * restrict nptr, wchar_t ** restrict endptr, int base)
 {
-#ifdef __SDCC_LONGLONG
   return wcstoull(nptr, endptr, base);
-#else
-  return wcstoul(nptr, endptr, base);
-#endif
 }
