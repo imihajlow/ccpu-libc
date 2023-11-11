@@ -87,7 +87,8 @@ LIBC_OBJECTS=lib/__assert.o \
 	lib/wctomb.o \
 	lib/iswblank.o \
 	lib/sprintf.o \
-	lib/printf_large.o
+	lib/printf_large.o \
+	lib/bzero.o
 
 libc.a: $(LIBC_OBJECTS)
 	ar rc $@ $^
