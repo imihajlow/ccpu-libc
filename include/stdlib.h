@@ -69,8 +69,8 @@ extern long long int strtoll(const char *nptr, char **endptr, int base);
 extern unsigned long long int strtoull(const char *nptr, char **endptr, int base);
 
 /* SDCC extensions */
-extern void __uitoa(unsigned int, char *, unsigned char);
-extern void __itoa(int, char *, unsigned char);
+extern char *__uitoa(unsigned int, char *, unsigned char);
+extern char *__itoa(int, char *, unsigned char);
 extern void __ultoa(unsigned long, char *, unsigned char);
 extern void __ltoa(long, char *, unsigned char);
 

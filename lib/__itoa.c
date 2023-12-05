@@ -39,7 +39,7 @@
  radix  ->  Base of value (e.g.: 2 for binary, 10 for decimal, 16 for hex)
 ---------------------------------------------------------------------------*/
 
-void __uitoa(unsigned int value, char* string, unsigned char radix)
+char *__uitoa(unsigned int value, char* string, unsigned char radix)
 {
   signed char index = 0, i = 0;
 
@@ -52,8 +52,10 @@ void __uitoa(unsigned int value, char* string, unsigned char radix)
     ++index;
   } while (value != 0);
 
+  char *result = string + index;
   /* null terminate the string */
-  string[index--] = '\0';
+  --index;
+  *result = '\0';
 
   /* reverse the order of digits */
   while (index > i) {
@@ -63,14 +65,15 @@ void __uitoa(unsigned int value, char* string, unsigned char radix)
     ++i;
     --index;
   }
+  return result;
 }
 
-void __itoa(int value, char* string, unsigned char radix)
+char *__itoa(int value, char* string, unsigned char radix)
 {
   if (value < 0 && radix == 10) {
     *string++ = '-';
     value = -value;
   }
-  __uitoa(value, string, radix);
+  return __uitoa(value, string, radix);
 }
 
