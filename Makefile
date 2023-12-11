@@ -1,6 +1,6 @@
 CC=ccpu-cc
 ASM=../ccpu/tools/asm.py
-CFLAGS=--std=gnu11 -I include
+CFLAGS=-std=gnu11 -Iinclude
 
 LIBC_OBJECTS=lib/__assert.o \
 	lib/__itoa.o \
