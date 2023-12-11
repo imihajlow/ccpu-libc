@@ -94,8 +94,7 @@ libc.a: $(LIBC_OBJECTS)
 	ar rc $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $(@:.o=.s) $<
-	$(ASM) -o $@ $(@:.o=.s)
+	$(CC) $(CFLAGS) -o $@ $<
 
 %.o: %.asm
 	$(ASM) -o $@ $^
